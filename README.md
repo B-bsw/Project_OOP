@@ -8,6 +8,7 @@
 ```
 
 2. Setup Java
+   
    `java` version `23`
 
 3. Run
