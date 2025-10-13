@@ -11,7 +11,7 @@
    
    **java** version `23`
 
-3. Run
+3. Run Program by gradle ( groovy )
 
 - linux/mac/wsl
 ```bash
