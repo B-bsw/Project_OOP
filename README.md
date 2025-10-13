@@ -13,10 +13,15 @@
 
 3. Run
 
+- linux/mac/wsl
 ```bash
   gradle run
 ```
-
+- windows
+```bash
+  ./gradlew run
+```
+## Preview
 <div align='center'>
   <img src='./src/main/resources/game/game_hard/image.jpg' width='100%'>
 </div>
