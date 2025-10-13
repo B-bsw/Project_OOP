@@ -26,7 +26,7 @@
 - [@BB](https://github.com/b-bsw)
 - [@AekkarinDEV](https://github.com/AekkarinDEV)
 - [@wanchan](https://github.com/wanchandesuu)
-- 
+
 ## Preview
 <div align='center'>
   <img src='./src/main/resources/game/game_hard/image.jpg' width='100%'>
