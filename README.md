@@ -7,11 +7,11 @@
   cd Project_OOP
 ```
 
-2. Setup Java
+2. Setup Java.
    
    **java** version `23`
 
-3. Run Program by gradle ( groovy )
+3. Run Program by gradle.
 
 - linux/mac/wsl
 ```bash
