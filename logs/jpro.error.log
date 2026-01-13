@@ -1,0 +1,1 @@
+2026-01-13 23:01:30,815 [ERROR] from com.jpro.JS in JavaFX Application Thread - received msg: Unexpected exception: NotFoundError: Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found.

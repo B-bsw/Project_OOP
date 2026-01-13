@@ -23,7 +23,7 @@ public class Controller_gate4 extends Animation {
 
     private List<Box> group_Box;
     private Scene scene;
-    private Stage stage;
+    // private Stage stage; // Removed shadowed field
     private Animation gate4;
     private double speedDog = 10.0;
     private boolean pass = false;
@@ -40,7 +40,7 @@ public class Controller_gate4 extends Animation {
     @Override
     public void initialize(Scene scene) throws IOException {
         this.scene = scene;
-        this.stage = (Stage) scene.getWindow();
+        // this.stage = (Stage) scene.getWindow(); // Removed
         group_Box = new ArrayList<>();
         group_Box.add(box1);
         group_Box.add(box2);
@@ -54,7 +54,7 @@ public class Controller_gate4 extends Animation {
         group_Box.add(box10);
         group_Box.add(box11);
         gate4 = new Animation(human4, group_Box, scene, anchorPane4, null);
-        gate4.setStage((Stage) scene.getWindow());
+        gate4.setStage(this.stage); // Use inherited stage
         gate4.initialize(scene);
         AnimationTimer timer = new AnimationTimer() {
             @Override

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Controller_gate3 extends Animation{
     private Scene scene;
-    private Stage stage;
+    // private Stage stage; // Removed shadowed field
     private List<Box> group_Box;
     private Animation gate3;
     private boolean pass = true;
@@ -29,7 +29,7 @@ public class Controller_gate3 extends Animation{
 
     public void initialize(Scene scene) throws IOException {
         this.scene = scene;
-        this.stage = (Stage) scene.getWindow();
+        // this.stage = (Stage) scene.getWindow(); // Removed
         group_Box = new ArrayList<>();
 
         group_Box.add(box1);
@@ -43,7 +43,7 @@ public class Controller_gate3 extends Animation{
         group_Box.add(box9);
 
         gate3 = new Animation(human3,group_Box,scene,anchorPane3,null);
-        gate3.setStage((Stage)scene.getWindow());
+        gate3.setStage(this.stage); // Use inherited stage
         gate3.initialize(scene);
         AnimationTimer timer = new AnimationTimer() {
             @Override

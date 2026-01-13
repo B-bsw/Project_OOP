@@ -18,14 +18,19 @@ public class MainMenu {
     private void handleBtn() throws IOException {
         stage = Main.getStage();
         dead();
-        stage.close();
+        // stage.close(); // Removed for JPro compatibility
     }
 
     protected void dead() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gate1.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
+        // Stage stage = new Stage(); // Removed for JPro compatibility
+        
+        // Use the existing stage
+        if (stage == null) {
+            stage = Main.getStage();
+        }
 
         Animation controller = loader.getController();
         controller.setStage(stage);

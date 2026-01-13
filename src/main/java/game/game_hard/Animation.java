@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+
 public class Animation {
     @FXML
     private AnchorPane anchorPane;
@@ -30,12 +33,12 @@ public class Animation {
     private ImageView human, door;
 
     private boolean once = false;
-    private double boxSpeed = 0.2;
-    private int keyA = -2;
-    private int keyD = 2;
+    private double boxSpeed = 1.5;
+    private int keyA = -5;
+    private int keyD = 5;
     private boolean canJump = true;
     private Point2D playerVelocity = new Point2D(0, 0);
-    private Stage stage;
+    protected Stage stage;
     private Scene scene;
     private boolean pass = true;
 
@@ -60,6 +63,14 @@ public class Animation {
         if (box_4 != null) group_Box.add(box_4);
         if (box_move != null) group_Box.add(box_move);
 
+        // Ensure all boxes have a material so they are visible in JPro
+        PhongMaterial greyMaterial = new PhongMaterial(Color.GREY);
+        for (Box box : group_Box) {
+            if (box.getMaterial() == null) {
+                box.setMaterial(greyMaterial);
+            }
+        }
+
         this.scene = scene;
 
         scene.setOnKeyPressed(this::handleKeyboard);
@@ -80,18 +91,18 @@ public class Animation {
     protected void update() throws IOException {
         if (human != null) {
             if (isPressed(KeyCode.A)) {
-                movePlayerX(-2);
+                movePlayerX(-5);
                 human.setScaleX(-1);
             }
             if (isPressed(KeyCode.D)) {
-                movePlayerX(2);
+                movePlayerX(5);
                 human.setScaleX(1);
             }
             if (isPressed(KeyCode.W)) {
                 jumpPlayer();
             }
 
-            if (playerVelocity.getY() < 1) {
+            if (playerVelocity.getY() < 10) {
                 playerVelocity = playerVelocity.add(0, 1);
             }
             movePlayerY((int) playerVelocity.getY());
@@ -104,7 +115,7 @@ public class Animation {
                 if (once) {
                     double newBoxY = box_move.getTranslateY() + boxSpeed;
                     box_move.setTranslateY(newBoxY);
-                    boxSpeed += 0.001;
+                    boxSpeed += 0.005;
 
                     if (newBoxY >= 500) {
                         box_move.setTranslateY(500);
@@ -138,7 +149,7 @@ public class Animation {
 
     private void movePlayerX(int value) { // left and right
         boolean movingRight = value > 0;
-        human.setTranslateX(human.getTranslateX() + (movingRight ? Math.min(value, 2) : Math.max(value, -2)));
+        human.setTranslateX(human.getTranslateX() + (movingRight ? Math.min(value, 10) : Math.max(value, -10)));
 
         for (Box box : group_Box) {
             if (box.getBoundsInParent().intersects(human.getBoundsInParent())) {
@@ -153,12 +164,16 @@ public class Animation {
     }
     private void movePlayerY(int value) { // jump and down
         boolean movingDown = value > 0;
-        human.setTranslateY(human.getTranslateY() + (movingDown ? Math.min(value, 1) : Math.max(value, -1)));
+        human.setTranslateY(human.getTranslateY() + (movingDown ? Math.min(value, 15) : Math.max(value, -15)));
         for (Box box : group_Box) {
             if (box.getBoundsInParent().intersects(human.getBoundsInParent())) {
                 if (movingDown) {
-                    human.setTranslateY(human.getTranslateY() - 1);
+                    human.setTranslateY(human.getTranslateY() - Math.min(value, 15));
                     canJump = true;
+                    playerVelocity = new Point2D(0,0);
+                } else {
+                     human.setTranslateY(human.getTranslateY() + Math.abs(value));
+                     playerVelocity = new Point2D(0,0);
                 }
                 break;
             }

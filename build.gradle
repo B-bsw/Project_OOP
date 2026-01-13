@@ -4,17 +4,20 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '2.25.0'
+    id 'jpro-gradle-plugin' version '2025.3.3'
 }
 
-group 'game'
-version '1.0-SNAPSHOT'
+group = 'game'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url "https://sandec.jfrog.io/artifactory/repo" }
 }
 
 ext {
     junitVersion = '5.10.2'
+    jproVersion  = '2025.3.3'
 }
 
 java {
@@ -23,34 +26,48 @@ java {
     }
 }
 
-
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 application {
     mainModule = 'game.game_hard'
-    mainClass = 'game.game_hard.Main'
+    mainClass  = 'game.game_hard.Main'
 }
 
 javafx {
     version = '23.0.1'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = [
+            'javafx.graphics',
+            'javafx.controls',
+            'javafx.fxml',
+            'javafx.media',
+            'javafx.web'
+    ]
 }
 
 dependencies {
+    implementation "one.jpro:jpro-webapi:$jproVersion"
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly  "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 test {
     useJUnitPlatform()
 }
 
+jpro {
+    port = 8080
+}
+
 jlink {
-    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    options = [
+            '--strip-debug',
+            '--compress', '2',
+            '--no-header-files',
+            '--no-man-pages'
+    ]
     launcher {
         name = 'app'
     }

@@ -23,7 +23,7 @@ public class Controller_gate2 extends Animation{
     @FXML
     private AnchorPane anchorPane;
     private Scene scene;
-    private Stage stage;
+    // private Stage stage; // Removed shadowed field
     private List<Box> group_Box;
     private Animation gate2;
 
@@ -40,9 +40,9 @@ public class Controller_gate2 extends Animation{
         group_Box.add(box3);
         group_Box.add(box4);
         this.scene = scene;
-        this.stage = (Stage) scene.getWindow();
-        gate2 = new Animation(human2,group_Box,scene,anchorPane,null);
-         gate2.setStage((Stage) scene.getWindow());
+        // this.stage = (Stage) scene.getWindow(); // Removed
+        gate2 = new Animation(human2,group_Box,scene,anchorPane,this.stage); // Use inherited stage
+         gate2.setStage(this.stage); // Use inherited stage
          gate2.initialize(scene);
         AnimationTimer timer = new AnimationTimer() {
             @Override

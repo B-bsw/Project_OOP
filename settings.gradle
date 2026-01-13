@@ -1,1 +1,16 @@
-rootProject.name = "game_levelDevil"
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven { url = uri("https://sandec.jfrog.io/artifactory/repo/") } // ✅ จำเป็น
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'jpro-gradle-plugin') {
+                useModule("one.jpro:jpro-gradle-plugin:${requested.version}")
+            }
+        }
+    }
+}
+
+rootProject.name = "Project_OOP"
