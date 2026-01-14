@@ -42,7 +42,7 @@ public class Controller_gate2 extends Animation{
         this.scene = scene;
         // this.stage = (Stage) scene.getWindow(); // Removed
         gate2 = new Animation(human2,group_Box,scene,anchorPane,this.stage); // Use inherited stage
-         gate2.setStage(this.stage); // Use inherited stage
+         gate2.setStage(this.stage);
          gate2.initialize(scene);
         AnimationTimer timer = new AnimationTimer() {
             @Override
