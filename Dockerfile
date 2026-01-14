@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM eclipse-temurin:23-jdk-jammy AS build
+FROM eclipse-temurin:23-jdk AS build
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ COPY src src
 RUN ./gradlew jproRelease --no-daemon
 
 # Stage 2: Create the runtime image
-FROM eclipse-temurin:23-jdk-jammy
+FROM eclipse-temurin:23-jdk
 
 # Install unzip to extract the distribution
 RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
@@ -50,7 +50,7 @@ RUN chmod +x bin/start.sh
 EXPOSE 8080
 
 # Define the entrypoint
-# Render will map the exposed port. 
+# Render will map the exposed port.
 # If JPro needs a specific port passed via arguments, you might need to adjust this.
 # Default JPro behavior often respects standard configuration or runs on 8080.
 CMD ["./bin/start.sh"]
